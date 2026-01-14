@@ -9,26 +9,32 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="loader-ring"></div>
+            <div class="loader-text">ARENA TOP</div>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-content">
-                <a href="#" class="logo">
-                    <span class="logo-icon">⚽</span>
-                    <span class="logo-text">Arena Top</span>
+                <a href="#home" class="logo">
+                    <span class="logo-text">ARENA TOP</span>
                 </a>
                 <div class="nav-links" id="navLinks">
-                    <a href="#home">Bosh sahifa</a>
-                    <a href="#features">Imkoniyatlar</a>
-                    <a href="#biznes">Biznes</a>
-                    <a href="#contact">Aloqa</a>
-                    <a href="#download" class="btn-primary">Yuklab olish</a>
+                    <a href="#home" class="nav-link">ASOSIY</a>
+                    <a href="#features" class="nav-link">IMKONIYATLAR</a>
+                    <a href="#biznes" class="nav-link">BIZNES</a>
+                    <a href="#contact" class="nav-link">ALOQA</a>
+                    <a href="#download" class="btn-download">YUKLAB OLISH</a>
                 </div>
                 <button class="menu-toggle" id="menuToggle">
-                    <span></span>
                     <span></span>
                     <span></span>
                 </button>
@@ -38,63 +44,50 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-pattern">ARENA TOP</div>
+        </div>
         <div class="container">
             <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        Sport Maydonlarini <span class="highlight">Oson va Tez</span> Bron Qiling
-                    </h1>
-                    <p class="hero-description">
-                        Arena Top - O'zbekistondagi eng yaxshi sport maydonlarini topish va bron qilish uchun zamonaviy ilova. Bir necha soniyada o'yiningiz uchun maydon toping!
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#download" class="btn-large btn-primary">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Ilovani yuklab olish
-                        </a>
-                        <a href="#features" class="btn-large btn-secondary">Batafsil ma'lumot</a>
-                    </div>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-number">1000+</div>
-                            <div class="stat-label">Sport maydonlari</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">50K+</div>
-                            <div class="stat-label">Faol foydalanuvchilar</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">100K+</div>
-                            <div class="stat-label">Muvaffaqiyatli bronlar</div>
-                        </div>
-                    </div>
+                <div class="hero-logo">
+                    <img src="assets/logo.svg" alt="Arena Top Logo" class="main-logo">
                 </div>
-                <div class="hero-image">
-                    <div class="phone-mockup">
-                        <div class="phone-frame">
-                            <div class="phone-screen">
-                                <div class="app-preview">
-                                    <div class="app-header">
-                                        <div class="time">9:41</div>
-                                    </div>
-                                    <div class="app-content">
-                                        <div class="search-bar"></div>
-                                        <div class="venue-cards">
-                                            <div class="venue-card"></div>
-                                            <div class="venue-card"></div>
-                                            <div class="venue-card"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <h1 class="hero-title">
+                    SPORT MAYDONLARINI<br>
+                    <span class="highlight">OSON VA TEZ</span> BRON QILING
+                </h1>
+                <p class="hero-subtitle">
+                    O'zbekistondagi eng yaxshi sport maydonlarini topish va bron qilish
+                </p>
+                <div class="hero-cta">
+                    <a href="#download" class="btn-primary">
+                        <span>ILOVANI YUKLAB OLISH</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 13l5 5 5-5M12 18V6"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="1000">0</div>
+                        <div class="stat-label">Sport maydonlari</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50000">0</div>
+                        <div class="stat-label">Faol foydalanuvchilar</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="100000">0</div>
+                        <div class="stat-label">Muvaffaqiyatli bronlar</div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>SCROLL</span>
         </div>
     </section>
 
@@ -102,39 +95,58 @@
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Arena Top Imkoniyatlari</h2>
-                <p class="section-subtitle">Foydalanuvchilar uchun qulay va kuchli imkoniyatlar</p>
+                <span class="section-label">IMKONIYATLAR</span>
+                <h2 class="section-title">ARENA TOP</h2>
+                <p class="section-subtitle">Foydalanuvchilar uchun qulay va kuchli funksiyalar</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3 class="feature-title">Oson Qidiruv</h3>
-                    <p class="feature-description">Joylashuv, narx va vaqt bo'yicha sport maydonlarini toping</p>
+                <div class="feature-card" data-aos="fade-up" data-delay="100">
+                    <div class="feature-number">01</div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">OSON QIDIRUV</h3>
+                        <p class="feature-description">Joylashuv, narx va vaqt bo'yicha sport maydonlarini toping</p>
+                    </div>
+                    <div class="feature-line"></div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📅</div>
-                    <h3 class="feature-title">Onlayn Bron</h3>
-                    <p class="feature-description">Bir necha soniyada kerakli vaqtga maydon bron qiling</p>
+                <div class="feature-card" data-aos="fade-up" data-delay="200">
+                    <div class="feature-number">02</div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">ONLAYN BRON</h3>
+                        <p class="feature-description">Bir necha soniyada kerakli vaqtga maydon bron qiling</p>
+                    </div>
+                    <div class="feature-line"></div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💳</div>
-                    <h3 class="feature-title">Xavfsiz To'lov</h3>
-                    <p class="feature-description">Turli to'lov usullari bilan xavfsiz to'lang</p>
+                <div class="feature-card" data-aos="fade-up" data-delay="300">
+                    <div class="feature-number">03</div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">XAVFSIZ TO'LOV</h3>
+                        <p class="feature-description">Turli to'lov usullari bilan xavfsiz to'lang</p>
+                    </div>
+                    <div class="feature-line"></div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⭐</div>
-                    <h3 class="feature-title">Reytinglar va Sharhlar</h3>
-                    <p class="feature-description">Boshqa foydalanuvchilar fikrlari bilan tanishing</p>
+                <div class="feature-card" data-aos="fade-up" data-delay="400">
+                    <div class="feature-number">04</div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">REYTINGLAR</h3>
+                        <p class="feature-description">Boshqa foydalanuvchilar fikrlari bilan tanishing</p>
+                    </div>
+                    <div class="feature-line"></div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔔</div>
-                    <h3 class="feature-title">Bildirishnomalar</h3>
-                    <p class="feature-description">Bron qilishlar va aksilar haqida xabardor bo'ling</p>
+                <div class="feature-card" data-aos="fade-up" data-delay="500">
+                    <div class="feature-number">05</div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">BILDIRISHNOMALAR</h3>
+                        <p class="feature-description">Bron qilishlar va aksilar haqida xabardor bo'ling</p>
+                    </div>
+                    <div class="feature-line"></div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3 class="feature-title">Tarix</h3>
-                    <p class="feature-description">Barcha bron qilishlar tarixini kuzatib boring</p>
+                <div class="feature-card" data-aos="fade-up" data-delay="600">
+                    <div class="feature-number">06</div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">TARIX</h3>
+                        <p class="feature-description">Barcha bron qilishlar tarixini kuzatib boring</p>
+                    </div>
+                    <div class="feature-line"></div>
                 </div>
             </div>
         </div>
@@ -142,73 +154,87 @@
 
     <!-- Biznes Section -->
     <section id="biznes" class="biznes">
+        <div class="biznes-background"></div>
         <div class="container">
-            <div class="biznes-content">
-                <div class="biznes-image">
-                    <div class="dashboard-mockup">
-                        <div class="dashboard-header">
-                            <div class="dashboard-logo">ArenaTop Biznes</div>
-                            <div class="dashboard-nav"></div>
-                        </div>
-                        <div class="dashboard-body">
-                            <div class="dashboard-stats">
-                                <div class="stat-card"></div>
-                                <div class="stat-card"></div>
-                                <div class="stat-card"></div>
-                            </div>
-                            <div class="dashboard-chart"></div>
-                        </div>
+            <div class="section-header">
+                <span class="section-label light">BIZNES UCHUN</span>
+                <h2 class="section-title light">ARENATOP BIZNES</h2>
+                <p class="section-subtitle light">Sport maydonlari uchun professional CRM tizimi</p>
+            </div>
+            <div class="biznes-grid">
+                <div class="biznes-card" data-aos="fade-up" data-delay="100">
+                    <div class="biznes-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
                     </div>
+                    <h3 class="biznes-title">BRON BOSHQARUVI</h3>
+                    <p class="biznes-description">Barcha bronlarni bir joydan boshqaring va monitoring qiling</p>
                 </div>
-                <div class="biznes-text">
-                    <h2 class="section-title">ArenaTop Biznes</h2>
-                    <p class="section-subtitle">Sport maydonlari uchun professional CRM tizimi</p>
-                    <div class="biznes-features">
-                        <div class="biznes-feature">
-                            <div class="check-icon">✓</div>
-                            <div class="biznes-feature-text">
-                                <h4>Bron Boshqaruvi</h4>
-                                <p>Barcha bronlarni bir joydan boshqaring</p>
-                            </div>
-                        </div>
-                        <div class="biznes-feature">
-                            <div class="check-icon">✓</div>
-                            <div class="biznes-feature-text">
-                                <h4>Moliyaviy Hisobotlar</h4>
-                                <p>Daromad va xarajatlarni real vaqtda kuzating</p>
-                            </div>
-                        </div>
-                        <div class="biznes-feature">
-                            <div class="check-icon">✓</div>
-                            <div class="biznes-feature-text">
-                                <h4>Mijozlar Bazasi</h4>
-                                <p>Doimiy mijozlarni rag'batlantiring va kuzatib boring</p>
-                            </div>
-                        </div>
-                        <div class="biznes-feature">
-                            <div class="check-icon">✓</div>
-                            <div class="biznes-feature-text">
-                                <h4>Statistika va Analitika</h4>
-                                <p>Biznesingizni rivojlantirish uchun ma'lumotlar</p>
-                            </div>
-                        </div>
-                        <div class="biznes-feature">
-                            <div class="check-icon">✓</div>
-                            <div class="biznes-feature-text">
-                                <h4>Marketing Vositalari</h4>
-                                <p>Chegirmalar va aksiyalar orqali ko'proq mijoz jalb qiling</p>
-                            </div>
-                        </div>
-                        <div class="biznes-feature">
-                            <div class="check-icon">✓</div>
-                            <div class="biznes-feature-text">
-                                <h4>Mobil Boshqaruv</h4>
-                                <p>Istalgan joydan biznesingizni boshqaring</p>
-                            </div>
-                        </div>
+                <div class="biznes-card" data-aos="fade-up" data-delay="200">
+                    <div class="biznes-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
                     </div>
-                    <a href="#contact" class="btn-large btn-primary">Biznes uchun ro'yxatdan o'tish</a>
+                    <h3 class="biznes-title">MOLIYAVIY HISOBOTLAR</h3>
+                    <p class="biznes-description">Daromad va xarajatlarni real vaqtda kuzatib boring</p>
                 </div>
+                <div class="biznes-card" data-aos="fade-up" data-delay="300">
+                    <div class="biznes-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3 class="biznes-title">MIJOZLAR BAZASI</h3>
+                    <p class="biznes-description">Doimiy mijozlarni rag'batlantiring va kuzatib boring</p>
+                </div>
+                <div class="biznes-card" data-aos="fade-up" data-delay="400">
+                    <div class="biznes-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3 class="biznes-title">STATISTIKA VA ANALITIKA</h3>
+                    <p class="biznes-description">Biznesingizni rivojlantirish uchun ma'lumotlar</p>
+                </div>
+                <div class="biznes-card" data-aos="fade-up" data-delay="500">
+                    <div class="biznes-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="biznes-title">MARKETING VOSITALARI</h3>
+                    <p class="biznes-description">Chegirmalar va aksiyalar orqali ko'proq mijoz jalb qiling</p>
+                </div>
+                <div class="biznes-card" data-aos="fade-up" data-delay="600">
+                    <div class="biznes-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <h3 class="biznes-title">MOBIL BOSHQARUV</h3>
+                    <p class="biznes-description">Istalgan joydan biznesingizni boshqaring</p>
+                </div>
+            </div>
+            <div class="biznes-cta">
+                <a href="#contact" class="btn-secondary">
+                    <span>BIZNES UCHUN RO'YXATDAN O'TISH</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
@@ -217,25 +243,32 @@
     <section id="download" class="download">
         <div class="container">
             <div class="download-content">
-                <h2 class="section-title white-text">Arena Top ilovasini hoziroq yuklab oling</h2>
-                <p class="section-subtitle white-text">O'zbekistondagi eng yaxshi sport maydonlarini kashf qiling</p>
+                <div class="section-header">
+                    <span class="section-label">YUKLAB OLISH</span>
+                    <h2 class="section-title">ILOVANI YUKLAB OLING</h2>
+                    <p class="section-subtitle">O'zbekistondagi eng yaxshi sport maydonlarini kashf qiling</p>
+                </div>
                 <div class="download-buttons">
-                    <a href="#" class="download-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                        </svg>
-                        <div>
-                            <div class="download-btn-small">Yuklab olish</div>
-                            <div class="download-btn-large">App Store</div>
+                    <a href="#" class="store-btn">
+                        <div class="store-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                            </svg>
+                        </div>
+                        <div class="store-text">
+                            <div class="store-small">Yuklab olish</div>
+                            <div class="store-large">APP STORE</div>
                         </div>
                     </a>
-                    <a href="#" class="download-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-4.77 2.27-1.45zm2.49-1.68l-2.49 1.39-2.79-1.57 2.79-1.57 2.49 1.39c.38.21.59.62.59 1.05s-.21.84-.59 1.05v.26zm-2.49-7.09L6.05 2.66l10.76 6.22 2.27 1.45-2.27 1.02z"/>
-                        </svg>
-                        <div>
-                            <div class="download-btn-small">Yuklab olish</div>
-                            <div class="download-btn-large">Google Play</div>
+                    <a href="#" class="store-btn">
+                        <div class="store-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35zm13.81-5.38L6.05 21.34l8.49-4.77 2.27-1.45zm2.49-1.68l-2.49 1.39-2.79-1.57 2.79-1.57 2.49 1.39c.38.21.59.62.59 1.05s-.21.84-.59 1.05v.26zm-2.49-7.09L6.05 2.66l10.76 6.22 2.27 1.45-2.27 1.02z"/>
+                            </svg>
+                        </div>
+                        <div class="store-text">
+                            <div class="store-small">Yuklab olish</div>
+                            <div class="store-large">GOOGLE PLAY</div>
                         </div>
                     </a>
                 </div>
@@ -247,29 +280,45 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Biz bilan bog'laning</h2>
-                <p class="section-subtitle">Savollaringiz bormi? Biz sizga yordam beramiz!</p>
+                <span class="section-label">ALOQA</span>
+                <h2 class="section-title">BIZ BILAN BOG'LANING</h2>
+                <p class="section-subtitle">Savollaringiz bormi? Biz sizga yordam beramiz</p>
             </div>
             <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="contact-icon">📧</div>
-                    <h3>Email</h3>
-                    <p>info@arenatop.uz</p>
-                    <p>support@arenatop.uz</p>
+                <div class="contact-card" data-aos="fade-up" data-delay="100">
+                    <div class="contact-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="contact-title">EMAIL</h3>
+                    <p class="contact-info">info@arenatop.uz</p>
+                    <p class="contact-info">support@arenatop.uz</p>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon">📱</div>
-                    <h3>Telefon</h3>
-                    <p>+998 90 123 45 67</p>
-                    <p>+998 91 234 56 78</p>
+                <div class="contact-card" data-aos="fade-up" data-delay="200">
+                    <div class="contact-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="contact-title">TELEFON</h3>
+                    <p class="contact-info">+998 90 123 45 67</p>
+                    <p class="contact-info">+998 91 234 56 78</p>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon">🌐</div>
-                    <h3>Ijtimoiy tarmoqlar</h3>
+                <div class="contact-card" data-aos="fade-up" data-delay="300">
+                    <div class="contact-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="contact-title">IJTIMOIY TARMOQLAR</h3>
                     <div class="social-links">
-                        <a href="#">Telegram</a>
-                        <a href="#">Instagram</a>
-                        <a href="#">Facebook</a>
+                        <a href="#" class="social-link">TELEGRAM</a>
+                        <a href="#" class="social-link">INSTAGRAM</a>
+                        <a href="#" class="social-link">FACEBOOK</a>
                     </div>
                 </div>
             </div>
@@ -280,36 +329,33 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <span class="logo-icon">⚽</span>
-                        <span class="logo-text">Arena Top</span>
-                    </div>
-                    <p>Sport maydonlarini bron qilish uchun №1 ilova O'zbekistonda</p>
+                <div class="footer-main">
+                    <div class="footer-logo">ARENA TOP</div>
+                    <p class="footer-text">Sport maydonlarini bron qilish uchun №1 ilova O'zbekistonda</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4>Mahsulot</h4>
-                        <a href="#features">Imkoniyatlar</a>
-                        <a href="#download">Yuklab olish</a>
-                        <a href="#biznes">Biznes</a>
+                        <h4 class="footer-heading">MAHSULOT</h4>
+                        <a href="#features" class="footer-link">Imkoniyatlar</a>
+                        <a href="#download" class="footer-link">Yuklab olish</a>
+                        <a href="#biznes" class="footer-link">Biznes</a>
                     </div>
                     <div class="footer-column">
-                        <h4>Kompaniya</h4>
-                        <a href="#">Biz haqimizda</a>
-                        <a href="#">Yangiliklar</a>
-                        <a href="#">Karyera</a>
+                        <h4 class="footer-heading">KOMPANIYA</h4>
+                        <a href="#" class="footer-link">Biz haqimizda</a>
+                        <a href="#" class="footer-link">Yangiliklar</a>
+                        <a href="#" class="footer-link">Karyera</a>
                     </div>
                     <div class="footer-column">
-                        <h4>Yordam</h4>
-                        <a href="#contact">Aloqa</a>
-                        <a href="#">FAQ</a>
-                        <a href="#">Qo'llab-quvvatlash</a>
+                        <h4 class="footer-heading">YORDAM</h4>
+                        <a href="#contact" class="footer-link">Aloqa</a>
+                        <a href="#" class="footer-link">FAQ</a>
+                        <a href="#" class="footer-link">Qo'llab-quvvatlash</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Arena Top. Barcha huquqlar himoyalangan.</p>
+                <p>&copy; 2025 Arena Top. Barcha huquqlar himoyalangan.</p>
             </div>
         </div>
     </footer>
