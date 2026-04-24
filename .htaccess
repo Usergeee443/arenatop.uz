@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # /arena va /arena/ -> arena/index.html (Live Server / statik hosting)
+    RewriteRule ^arena/?$ arena/index.html [L]
+
+    # Eski .html havolalarni qisqa URLga yo'naltirish
+    RewriteRule ^index\.html$ / [R=301,L]
+    RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+
+    # Kengaytmasiz so'rovga mos .html faylni berish
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+Options -MultiViews
