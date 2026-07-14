@@ -1,8 +1,10 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/arena.html", "destination": "/arena/", "permanent": true },
-    { "source": "/arena", "destination": "/arena/", "permanent": true },
+    { "source": "/arena.html", "destination": "/arena", "permanent": true },
+    { "source": "/arena/", "destination": "/arena", "permanent": true },
     { "source": "/about", "destination": "/", "permanent": true },
     { "source": "/about.html", "destination": "/", "permanent": true },
     { "source": "/contact", "destination": "/", "permanent": true },
@@ -11,10 +13,12 @@
     { "source": "/faq.html", "destination": "/", "permanent": true },
     { "source": "/features", "destination": "/", "permanent": true },
     { "source": "/features.html", "destination": "/", "permanent": true },
-    { "source": "/biznes", "destination": "/arena/", "permanent": true },
-    { "source": "/biznes.html", "destination": "/arena/", "permanent": true }
+    { "source": "/biznes", "destination": "/arena", "permanent": true },
+    { "source": "/biznes.html", "destination": "/arena", "permanent": true },
+    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/arena/", "destination": "/arena/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

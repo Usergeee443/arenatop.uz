@@ -1,0 +1,28 @@
+<svg width="500" height="200" viewBox="0 0 500 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soccer Ball Icon -->
+  <g transform="translate(20, 20)">
+    <circle cx="80" cy="80" r="75" fill="none" stroke="#B1FC40" stroke-width="4"/>
+    <circle cx="80" cy="80" r="70" fill="#0B2E34"/>
+
+    <!-- Pentagon Pattern -->
+    <path d="M80 25 L105 40 L97 70 L63 70 L55 40 Z" fill="#B1FC40"/>
+    <path d="M105 40 L125 65 L110 90 L97 70 Z" fill="#2A8B9C"/>
+    <path d="M55 40 L35 65 L50 90 L63 70 Z" fill="#2A8B9C"/>
+    <path d="M50 90 L63 70 L97 70 L110 90 Z" fill="#B1FC40"/>
+    <path d="M50 90 L45 115 L70 125 Z" fill="#2A8B9C"/>
+    <path d="M110 90 L115 115 L90 125 Z" fill="#2A8B9C"/>
+    <path d="M70 125 L80 135 L90 125 Z" fill="#B1FC40"/>
+
+    <!-- Highlight -->
+    <circle cx="60" cy="50" r="8" fill="#B1FC40" opacity="0.6"/>
+  </g>
+
+  <!-- Text: ARENA TOP -->
+  <text x="180" y="100" font-family="Arial, sans-serif" font-size="72" font-weight="900" fill="#FFFFFF" letter-spacing="8">
+    ARENA TOP
+  </text>
+
+  <!-- Soccer ball accent in "O" -->
+  <circle cx="385" cy="72" r="22" fill="none" stroke="#B1FC40" stroke-width="3"/>
+  <path d="M385 55 L395 60 L392 73 L378 73 L375 60 Z" fill="#B1FC40"/>
+</svg>

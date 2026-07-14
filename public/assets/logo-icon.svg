@@ -1,0 +1,84 @@
+<!-- Arena Top Logo - Based on Brand Identity -->
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer Ring Segments -->
+  <g transform="translate(300, 300)">
+    <!-- Segment 1 - Top Right -->
+    <path d="M 50 -100 A 120 120 0 0 1 100 -50 L 80 -40 A 95 95 0 0 0 40 -80 Z" fill="#B1FC40"/>
+
+    <!-- Segment 2 - Right -->
+    <path d="M 100 -50 A 120 120 0 0 1 120 0 L 95 0 A 95 95 0 0 0 80 -40 Z" fill="#B1FC40"/>
+
+    <!-- Segment 3 - Bottom Right -->
+    <path d="M 120 0 A 120 120 0 0 1 100 50 L 80 40 A 95 95 0 0 0 95 0 Z" fill="#B1FC40"/>
+
+    <!-- Segment 4 - Bottom Right 2 -->
+    <path d="M 100 50 A 120 120 0 0 1 50 100 L 40 80 A 95 95 0 0 0 80 40 Z" fill="#9EE035"/>
+
+    <!-- Segment 5 - Bottom -->
+    <path d="M 50 100 A 120 120 0 0 1 0 120 L 0 95 A 95 95 0 0 0 40 80 Z" fill="#9EE035"/>
+
+    <!-- Segment 6 - Bottom Left -->
+    <path d="M 0 120 A 120 120 0 0 1 -50 100 L -40 80 A 95 95 0 0 0 0 95 Z" fill="#9EE035"/>
+
+    <!-- Segment 7 - Bottom Left 2 -->
+    <path d="M -50 100 A 120 120 0 0 1 -100 50 L -80 40 A 95 95 0 0 0 -40 80 Z" fill="#8CD02F"/>
+
+    <!-- Segment 8 - Left -->
+    <path d="M -100 50 A 120 120 0 0 1 -120 0 L -95 0 A 95 95 0 0 0 -80 40 Z" fill="#8CD02F"/>
+
+    <!-- Segment 9 - Top Left -->
+    <path d="M -120 0 A 120 120 0 0 1 -100 -50 L -80 -40 A 95 95 0 0 0 -95 0 Z" fill="#8CD02F"/>
+
+    <!-- Segment 10 - Top Left 2 -->
+    <path d="M -100 -50 A 120 120 0 0 1 -50 -100 L -40 -80 A 95 95 0 0 0 -80 -40 Z" fill="#B1FC40"/>
+
+    <!-- Segment 11 - Top -->
+    <path d="M -50 -100 A 120 120 0 0 1 0 -120 L 0 -95 A 95 95 0 0 0 -40 -80 Z" fill="#B1FC40"/>
+
+    <!-- Segment 12 - Top Right 2 -->
+    <path d="M 0 -120 A 120 120 0 0 1 50 -100 L 40 -80 A 95 95 0 0 0 0 -95 Z" fill="#B1FC40"/>
+  </g>
+
+  <!-- Inner Pentagon Structure -->
+  <g transform="translate(300, 300)">
+    <!-- Pentagon Lines -->
+    <path d="M 0 -60 L 57 -18 L 35 48 L -35 48 L -57 -18 Z"
+          fill="none"
+          stroke="#B1FC40"
+          stroke-width="8"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+    <!-- Pentagon Inner Fill -->
+    <path d="M 0 -60 L 57 -18 L 35 48 L -35 48 L -57 -18 Z"
+          fill="#0B2E34"
+          opacity="0.3"/>
+
+    <!-- Connecting Lines to Outer Ring -->
+    <line x1="0" y1="-60" x2="0" y2="-95" stroke="#B1FC40" stroke-width="6"/>
+    <line x1="57" y1="-18" x2="80" y2="-25" stroke="#B1FC40" stroke-width="6"/>
+    <line x1="35" y1="48" x2="50" y2="70" stroke="#B1FC40" stroke-width="6"/>
+    <line x1="-35" y1="48" x2="-50" y2="70" stroke="#B1FC40" stroke-width="6"/>
+    <line x1="-57" y1="-18" x2="-80" y2="-25" stroke="#B1FC40" stroke-width="6"/>
+
+    <!-- Center Pentagon Points -->
+    <circle cx="0" cy="-60" r="8" fill="#B1FC40"/>
+    <circle cx="57" cy="-18" r="8" fill="#B1FC40"/>
+    <circle cx="35" cy="48" r="8" fill="#B1FC40"/>
+    <circle cx="-35" cy="48" r="8" fill="#B1FC40"/>
+    <circle cx="-57" cy="-18" r="8" fill="#B1FC40"/>
+
+    <!-- Center Circle -->
+    <circle cx="0" cy="0" r="12" fill="#B1FC40" filter="url(#glow)"/>
+  </g>
+</svg>
