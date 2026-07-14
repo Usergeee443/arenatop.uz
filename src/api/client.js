@@ -22,26 +22,40 @@ export function clearTokens() {
 }
 
 function buildUrl(path, query) {
-  const base = API_BASE.replace(/\/$/, '');
-  const suffix = path.startsWith('/') ? path : `/${path}`;
-  const raw = path.startsWith('http') ? path : `${base}${suffix}`;
-  const url = raw.startsWith('http')
-    ? new URL(raw)
-    : new URL(raw, typeof window !== 'undefined' ? window.location.origin : 'http://localhost');
+  const base = String(API_BASE || '/v1').replace(/\/$/, '');
+  let urlString;
+
+  if (/^https?:\/\//i.test(path)) {
+    urlString = path;
+  } else {
+    const suffix = path.startsWith('/') ? path : `/${path}`;
+    const joined = `${base}${suffix}`;
+    if (/^https?:\/\//i.test(joined)) {
+      urlString = joined;
+    } else {
+      // Relative /v1/... — fetch qabul qiladi; new URL() kerak emas
+      urlString = joined.startsWith('/') ? joined : `/${joined}`;
+    }
+  }
+
   if (query) {
+    const params = new URLSearchParams();
     Object.entries(query).forEach(([key, value]) => {
       if (value === undefined || value === null || value === '') return;
-      url.searchParams.set(key, String(value));
+      params.set(key, String(value));
     });
+    const qs = params.toString();
+    if (qs) urlString += (urlString.includes('?') ? '&' : '?') + qs;
   }
-  return url.toString();
+
+  return urlString;
 }
 
 async function tryRefresh() {
   const refresh = getRefreshToken();
   if (!refresh) return false;
   try {
-    const res = await fetch(`${API_BASE}/auth/refresh`, {
+    const res = await fetch(buildUrl('/auth/refresh'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refresh_token: refresh }),
