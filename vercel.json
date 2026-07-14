@@ -19,6 +19,13 @@
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/v1/:path*",
+      "destination": "https://api.arenatop.uz/v1/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

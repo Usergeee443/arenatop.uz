@@ -12,5 +12,12 @@ export default defineConfig({
       usePolling: true,
       interval: 1000,
     },
+    proxy: {
+      '/v1': {
+        target: 'https://api.arenatop.uz',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
 });

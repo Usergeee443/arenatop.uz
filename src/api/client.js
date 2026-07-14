@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'https://api.arenatop.uz/v1';
+const API_BASE = import.meta.env.VITE_API_BASE || '/v1';
 
 const TOKEN_KEY = 'arenatop_access';
 const REFRESH_KEY = 'arenatop_refresh';
@@ -22,7 +22,12 @@ export function clearTokens() {
 }
 
 function buildUrl(path, query) {
-  const url = new URL(path.startsWith('http') ? path : `${API_BASE}${path}`);
+  const base = API_BASE.replace(/\/$/, '');
+  const suffix = path.startsWith('/') ? path : `/${path}`;
+  const raw = path.startsWith('http') ? path : `${base}${suffix}`;
+  const url = raw.startsWith('http')
+    ? new URL(raw)
+    : new URL(raw, typeof window !== 'undefined' ? window.location.origin : 'http://localhost');
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
       if (value === undefined || value === null || value === '') return;
@@ -70,13 +75,22 @@ export async function api(path, { method = 'GET', query, body, auth = false, hea
     if (token) opts.headers.Authorization = `Bearer ${token}`;
   }
 
-  let res = await fetch(buildUrl(path, query), opts);
+  let res;
+  try {
+    res = await fetch(buildUrl(path, query), opts);
+  } catch {
+    throw new Error('Serverga ulanib bo‘lmadi. Internetni tekshiring yoki keyinroq urinib ko‘ring.');
+  }
 
   if (res.status === 401 && auth) {
     const ok = await tryRefresh();
     if (ok) {
       opts.headers.Authorization = `Bearer ${getAccessToken()}`;
-      res = await fetch(buildUrl(path, query), opts);
+      try {
+        res = await fetch(buildUrl(path, query), opts);
+      } catch {
+        throw new Error('Serverga ulanib bo‘lmadi. Internetni tekshiring yoki keyinroq urinib ko‘ring.');
+      }
     }
   }
 
