@@ -1,7 +1,7 @@
 /**
  * API base URL resolution.
- * Production / Vercel: always same-origin `/v1` (proxied by /api/v1/[...path].js).
- * Absolute http(s) env is only used when explicitly set (e.g. local without proxy).
+ * Default: same-origin `/v1` (Vite proxy in dev, Vercel rewrite in prod → api.arenatop.uz).
+ * Absolute http(s) env overrides when set.
  */
 function resolveApiBase() {
   const raw = import.meta.env.VITE_API_BASE;
@@ -9,7 +9,6 @@ function resolveApiBase() {
     const trimmed = raw.trim();
     if (/^https?:\/\//i.test(trimmed)) return trimmed.replace(/\/$/, '');
   }
-  // Relative — works with Vite proxy (dev) and Vercel /api/v1 serverless (prod)
   return '/v1';
 }
 
