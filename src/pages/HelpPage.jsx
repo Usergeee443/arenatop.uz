@@ -1,9 +1,8 @@
+import { APP_STORE, EMAIL, PHONE, PHONE_DISPLAY, PLAY_STORE, TELEGRAM } from '../constants/links';
 import { Link } from 'react-router-dom';
 import AppHeader from '../components/layout/AppHeader';
 import PageMeta from '../components/layout/PageMeta';
 import Faq from '../components/ui/Faq';
-import { APP_STORE, EMAIL, PHONE, PHONE_DISPLAY, PLAY_STORE, TELEGRAM } from '../constants/links';
-import { useDownload } from '../context/DownloadContext';
 
 const helpFaq = [
   {
@@ -25,8 +24,6 @@ const helpFaq = [
 ];
 
 export default function HelpPage() {
-  const { openDownload } = useDownload();
-
   return (
     <>
       <PageMeta title="Yordam — ArenaTop" description="ArenaTop yordam markazi." path="/yordam" />
@@ -58,9 +55,9 @@ export default function HelpPage() {
             <h2>Mobil ilova</h2>
             <p className="app-muted">App Store va Google Play dan yuklab oling.</p>
             <div className="hero__actions">
-              <button type="button" className="btn btn--primary" onClick={openDownload}>
+              <Link to="/yuklab-olish" className="btn btn--primary">
                 Yuklab olish
-              </button>
+              </Link>
               <a href={APP_STORE} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
                 App Store
               </a>

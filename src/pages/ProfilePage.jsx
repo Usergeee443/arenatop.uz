@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import { patchMe } from '../api/users';
 import AppHeader from '../components/layout/AppHeader';
 import PageMeta from '../components/layout/PageMeta';
+import AuthRequired from '../components/ui/AuthRequired';
 import { useAuth } from '../context/AuthContext';
 
 const MENU = [
-  { to: '/bronlarim', label: 'Mening bronlarim', hint: 'Faol va o‘tgan bronlar' },
-  { to: '/sevimlilar', label: 'Sevimlilar', hint: 'Saqlangan maydonlar' },
-  { to: '/profil/kartalar', label: 'To‘lov kartalari', hint: 'Qaytarish uchun kartalar' },
-  { to: '/profil/qaytarishlar', label: 'Qaytarish so‘rovlarim', hint: 'Pul qaytarish holati' },
-  { to: '/profil/tolovlar', label: 'To‘lovlar tarixi', hint: 'Barcha to‘lovlar' },
-  { to: '/profil/sharhlar', label: 'Mening sharhlarim', hint: 'Yozgan baholarim' },
-  { to: '/profil/bildirishnomalar', label: 'Bildirishnomalar', hint: 'Xabarlar va eslatmalar' },
+  { to: '/bronlarim', label: 'Bronlarim' },
+  { to: '/sevimlilar', label: 'Sevimlilar' },
+  { to: '/profil/kartalar', label: 'To‘lov kartalari' },
+  { to: '/profil/qaytarishlar', label: 'Qaytarish so‘rovlarim' },
+  { to: '/profil/tolovlar', label: 'To‘lovlar tarixi' },
+  { to: '/profil/sharhlar', label: 'Mening sharhlarim' },
+  { to: '/profil/bildirishnomalar', label: 'Bildirishnomalar' },
 ];
 
 export default function ProfilePage() {
@@ -47,33 +48,33 @@ export default function ProfilePage() {
       <PageMeta title="Profil — ArenaTop" description="Hisob sozlamalari." path="/profil" />
       <AppHeader />
 
-      <section className="app-page">
-        <div className="container" style={{ maxWidth: 640 }}>
-          <span className="eyebrow">Kabinet</span>
-          <h1 className="display-title">Profil</h1>
-
+      <section className="app-page profile-page">
+        <div className="container profile-page__wrap">
           {loading && <p className="app-muted">Yuklanmoqda…</p>}
 
           {!loading && !isAuthenticated && (
-            <div className="book-success" style={{ marginTop: '1.25rem' }}>
-              <p>Profilni ko‘rish uchun tizimga kiring.</p>
-              <button type="button" className="btn btn--primary" onClick={() => openAuth()}>
-                Kirish
-              </button>
-            </div>
+            <AuthRequired
+              message="Profilni ko‘rish uchun tizimga kiring."
+              onLogin={() => openAuth()}
+            />
           )}
 
           {isAuthenticated && user && (
-            <div className="profile-stack">
-              <div className="profile-card">
-                <div className="profile-card__avatar">
-                  {user.avatar_url ? (
-                    <img src={user.avatar_url} alt="" />
-                  ) : (
-                    <span>{(user.name || 'A').slice(0, 1).toUpperCase()}</span>
-                  )}
+            <div className="profile-layout">
+              <div className="profile-card profile-card--compact">
+                <div className="profile-card__top">
+                  <div className="profile-card__avatar">
+                    {user.avatar_url ? (
+                      <img src={user.avatar_url} alt="" />
+                    ) : (
+                      <span>{(user.name || 'A').slice(0, 1).toUpperCase()}</span>
+                    )}
+                  </div>
+                  <div>
+                    <p className="profile-card__name">{user.name || 'Foydalanuvchi'}</p>
+                    <p className="profile-card__phone">+{user.phone_number}</p>
+                  </div>
                 </div>
-                <p className="profile-card__phone">+{user.phone_number}</p>
 
                 <form className="auth-form" onSubmit={onSave}>
                   <label className="auth-label">
@@ -82,7 +83,7 @@ export default function ProfilePage() {
                   </label>
                   {error && <p className="auth-error">{error}</p>}
                   {msg && <p className="app-muted">{msg}</p>}
-                  <button type="submit" className="btn btn--primary" disabled={busy}>
+                  <button type="submit" className="btn btn--primary btn--sm" disabled={busy}>
                     {busy ? 'Saqlanmoqda…' : 'Saqlash'}
                   </button>
                 </form>
@@ -90,11 +91,8 @@ export default function ProfilePage() {
 
               <nav className="profile-menu" aria-label="Profil bo‘limlari">
                 {MENU.map((item) => (
-                  <Link key={item.to} to={item.to} className="profile-menu__item">
-                    <span>
-                      <strong>{item.label}</strong>
-                      <small>{item.hint}</small>
-                    </span>
+                  <Link key={item.to} to={item.to} className="profile-menu__item profile-menu__item--slim">
+                    <strong>{item.label}</strong>
                     <span className="profile-menu__chev" aria-hidden="true">›</span>
                   </Link>
                 ))}

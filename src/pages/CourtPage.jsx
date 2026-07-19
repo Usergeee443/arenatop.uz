@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { calculatePayment, createBooking, createPayment, getPaymentMethods } from '../api/bookings';
 import { createReview, getCourt, getCourtReviews, getCourtSlots } from '../api/courts';
 import { checkSavedStatus, saveCourt, unsaveCourt } from '../api/users';
+import BookingFlow from '../components/booking/BookingFlow';
 import AppHeader from '../components/layout/AppHeader';
 import PageMeta from '../components/layout/PageMeta';
 import { useAuth } from '../context/AuthContext';
@@ -10,9 +10,7 @@ import { useMediaQuery } from '../hooks/useMediaQuery';
 import {
   addDaysISO,
   courtImage,
-  formatDateUz,
   formatPrice,
-  formatTime,
   todayISO,
 } from '../utils/format';
 
@@ -37,39 +35,18 @@ export default function CourtPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [date, setDate] = useState(todayISO());
   const [slots, setSlots] = useState([]);
-  const [selected, setSelected] = useState([]);
-  const [pricing, setPricing] = useState(null);
-  const [payMethod, setPayMethod] = useState('payme');
-  const [methods, setMethods] = useState({ payme: true, click: true });
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
   const [slotsLoading, setSlotsLoading] = useState(false);
-  const [slotsOpen, setSlotsOpen] = useState(false);
-  const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(null);
   const [reviewOpen, setReviewOpen] = useState(false);
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState('');
   const [reviewBusy, setReviewBusy] = useState(false);
+  const [bookOpen, setBookOpen] = useState(false);
 
-  const slotsRef = useRef(null);
   const touchX = useRef(null);
 
-  const onHeroTouchStart = (e) => {
-    touchX.current = e.changedTouches[0]?.clientX ?? null;
-  };
-
-  const onHeroTouchEnd = (e) => {
-    if (touchX.current == null || gallery.length < 2) return;
-    const dx = (e.changedTouches[0]?.clientX ?? touchX.current) - touchX.current;
-    if (Math.abs(dx) < 40) return;
-    setActiveImage((i) => {
-      if (dx < 0) return Math.min(gallery.length - 1, i + 1);
-      return Math.max(0, i - 1);
-    });
-    touchX.current = null;
-  };
   const dates = useMemo(() => Array.from({ length: 7 }, (_, i) => addDaysISO(todayISO(), i)), []);
 
   const gallery = useMemo(() => {
@@ -79,30 +56,10 @@ export default function CourtPage() {
     return [...new Set([cover, ...imgs].filter(Boolean))];
   }, [court]);
 
-  const selectedSlots = useMemo(
-    () => slots.filter((s) => selected.includes(s.id)).sort((a, b) => String(a.start_time).localeCompare(String(b.start_time))),
-    [slots, selected]
-  );
-
   const freeCount = useMemo(
     () => slots.filter((s) => !s.is_booked && !s.is_blocked).length,
     [slots]
   );
-
-  useEffect(() => {
-    if (!isMobile) setSlotsOpen(true);
-  }, [isMobile]);
-
-  useEffect(() => {
-    getPaymentMethods()
-      .then((res) => {
-        setMethods({
-          payme: res?.payme !== false,
-          click: res?.click !== false,
-        });
-      })
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -136,8 +93,6 @@ export default function CourtPage() {
     if (!id || !date) return;
     let cancelled = false;
     setSlotsLoading(true);
-    setSelected([]);
-    setPricing(null);
     getCourtSlots(id, date)
       .then((data) => {
         if (!cancelled) setSlots(Array.isArray(data) ? data : []);
@@ -153,32 +108,19 @@ export default function CourtPage() {
     };
   }, [id, date]);
 
-  useEffect(() => {
-    if (!id || selected.length === 0) {
-      setPricing(null);
-      return;
-    }
-    let cancelled = false;
-    calculatePayment({ court_id: id, slot_count: selected.length, slot_date: date })
-      .then((data) => {
-        if (!cancelled) setPricing(data);
-      })
-      .catch(() => {
-        if (!cancelled) setPricing(null);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [id, selected, date]);
+  const onHeroTouchStart = (e) => {
+    touchX.current = e.changedTouches[0]?.clientX ?? null;
+  };
 
-  const toggleSlot = (slot) => {
-    if (slot.is_booked || slot.is_blocked) return;
-    setSelected((prev) => {
-      const exists = prev.includes(slot.id);
-      if (exists) return prev.filter((x) => x !== slot.id);
-      if (prev.length >= 8) return prev;
-      return [...prev, slot.id];
+  const onHeroTouchEnd = (e) => {
+    if (touchX.current == null || gallery.length < 2) return;
+    const dx = (e.changedTouches[0]?.clientX ?? touchX.current) - touchX.current;
+    if (Math.abs(dx) < 40) return;
+    setActiveImage((i) => {
+      if (dx < 0) return Math.min(gallery.length - 1, i + 1);
+      return Math.max(0, i - 1);
     });
+    touchX.current = null;
   };
 
   const toggleSave = async () => {
@@ -213,59 +155,13 @@ export default function CourtPage() {
     }
   };
 
-  const book = async () => {
-    setError('');
-    setSuccess(null);
-    if (selected.length === 0) {
-      setSlotsOpen(true);
-      setError('Kamida bitta vaqt tanlang');
-      slotsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
+  const refreshSlots = async () => {
+    try {
+      const fresh = await getCourtSlots(id, date);
+      setSlots(Array.isArray(fresh) ? fresh : []);
+    } catch {
+      /* ignore */
     }
-
-    const run = async () => {
-      setBusy(true);
-      try {
-        const booking = await createBooking({ court_id: id, time_slot_ids: selected });
-        let paymentUrl = null;
-        if (!pricing?.pay_at_venue_only) {
-          try {
-            const payment = await createPayment({
-              booking_id: booking.id,
-              method: payMethod,
-              court_amount: pricing?.required_prepayment_amount || undefined,
-            });
-            paymentUrl = payment?.payment_url || null;
-          } catch (payErr) {
-            setError(payErr.message || 'To‘lov yaratilmadi, lekin bron saqlandi');
-          }
-        }
-        setSuccess({ booking, paymentUrl });
-        setSelected([]);
-        const fresh = await getCourtSlots(id, date);
-        setSlots(Array.isArray(fresh) ? fresh : []);
-        if (paymentUrl) window.open(paymentUrl, '_blank', 'noopener,noreferrer');
-      } catch (err) {
-        setError(err.message || 'Bron qilib bo‘lmadi');
-      } finally {
-        setBusy(false);
-      }
-    };
-
-    if (!isAuthenticated) {
-      openAuth(run);
-      return;
-    }
-    await run();
-  };
-
-  const onStickyBook = () => {
-    if (!slotsOpen) {
-      setSlotsOpen(true);
-      slotsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    book();
   };
 
   const submitReview = async (e) => {
@@ -311,6 +207,7 @@ export default function CourtPage() {
         <section className="app-page">
           <div className="container">
             <h1 className="display-title">Maydon topilmadi</h1>
+            {error && <p className="auth-error">{error}</p>}
             <Link to="/" className="btn btn--primary">
               Maydonlarga qaytish
             </Link>
@@ -325,8 +222,8 @@ export default function CourtPage() {
       ? `https://www.google.com/maps?q=${court.latitude},${court.longitude}`
       : null;
 
-  const bookingBlock = (
-    <div className="court-m__book" id="bron" ref={slotsRef}>
+  const availabilityPreview = (
+    <div className="court-m__book" id="bron">
       <h2 className="court-m__h2">Mavjudligi</h2>
 
       <div className="court-m__dates">
@@ -337,10 +234,7 @@ export default function CourtPage() {
               key={d}
               type="button"
               className={`court-m__date${d === date ? ' is-active' : ''}`}
-              onClick={() => {
-                setDate(d);
-                setSlotsOpen(true);
-              }}
+              onClick={() => setDate(d)}
             >
               <em>{p.week}</em>
               <strong>
@@ -351,128 +245,26 @@ export default function CourtPage() {
         })}
       </div>
 
-      <button
-        type="button"
-        className="court-m__avail"
-        onClick={() => setSlotsOpen((v) => !v)}
-      >
+      <button type="button" className="court-m__avail" onClick={() => setBookOpen(true)}>
         <span>
           <i className={`court-m__dot${freeCount > 0 ? ' is-free' : ''}`} />
           {slotsLoading
             ? 'Yuklanmoqda…'
             : freeCount > 0
-              ? `${freeCount} ta bo‘sh joy`
+              ? `${freeCount} ta bo‘sh`
               : 'Bo‘sh joy yo‘q'}
         </span>
-        <span className="court-m__avail-link">
-          {slotsOpen ? 'Yopish' : 'Slotlarni ko‘rish'} ›
-        </span>
+        <span className="court-m__avail-link">Slotlarni ko‘rish ›</span>
       </button>
 
-      {slotsOpen && (
-        <div className="court-m__slots-wrap">
-          {slotsLoading ? (
-            <p className="app-muted">Slotlar yuklanmoqda…</p>
-          ) : slots.length === 0 ? (
-            <div className="book-empty">Bu kunga slotlar yo‘q.</div>
-          ) : (
-            <div className="book-slots book-slots--v2">
-              {slots.map((slot) => {
-                const disabled = slot.is_booked || slot.is_blocked;
-                const active = selected.includes(slot.id);
-                return (
-                  <button
-                    key={slot.id}
-                    type="button"
-                    disabled={disabled}
-                    className={`book-slot-v2${active ? ' is-active' : ''}${disabled ? ' is-disabled' : ''}`}
-                    onClick={() => toggleSlot(slot)}
-                  >
-                    {formatTime(slot.start_time)}
-                    <small>{formatTime(slot.end_time)}</small>
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          {selectedSlots.length > 0 && (
-            <div className="book-selected">
-              <div className="book-selected__title">Tanlangan: {selectedSlots.length} soat</div>
-              <div className="book-selected__times">
-                {selectedSlots.map((s) => (
-                  <span key={s.id}>
-                    {formatTime(s.start_time)}–{formatTime(s.end_time)}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {pricing && (
-            <div className="book-price book-price--v2">
-              <div>
-                <span>Jami</span>
-                <strong>{formatPrice(pricing.court_price)}</strong>
-              </div>
-              <div>
-                <span>Oldindan to‘lov</span>
-                <strong>{formatPrice(pricing.required_prepayment_amount || pricing.total_online)}</strong>
-              </div>
-            </div>
-          )}
-
-          {!pricing?.pay_at_venue_only && selected.length > 0 && (
-            <div className="pay-methods pay-methods--v2">
-              {methods.payme && (
-                <button
-                  type="button"
-                  className={`pay-chip${payMethod === 'payme' ? ' is-active' : ''}`}
-                  onClick={() => setPayMethod('payme')}
-                >
-                  Payme
-                </button>
-              )}
-              {methods.click && (
-                <button
-                  type="button"
-                  className={`pay-chip${payMethod === 'click' ? ' is-active' : ''}`}
-                  onClick={() => setPayMethod('click')}
-                >
-                  Click
-                </button>
-              )}
-            </div>
-          )}
-
-          {error && <p className="auth-error">{error}</p>}
-          {success && (
-            <div className="book-success">
-              <p>
-                Bron yaratildi: <strong>{success.booking.booking_code}</strong>
-              </p>
-              {success.paymentUrl && (
-                <a href={success.paymentUrl} target="_blank" rel="noopener noreferrer" className="btn btn--primary btn--sm">
-                  To‘lovni ochish
-                </a>
-              )}
-              <Link to="/bronlarim" className="text-link">
-                Mening bronlarim
-              </Link>
-            </div>
-          )}
-
-          {!isMobile && (
-            <button
-              type="button"
-              className="btn btn--primary btn--lg book-cta"
-              disabled={busy || selected.length === 0}
-              onClick={book}
-            >
-              {busy ? 'Bron qilinmoqda…' : 'Bron qilish'}
-            </button>
-          )}
-        </div>
+      {!isMobile && (
+        <button
+          type="button"
+          className="btn btn--primary btn--lg book-cta"
+          onClick={() => setBookOpen(true)}
+        >
+          Bron qilish
+        </button>
       )}
     </div>
   );
@@ -486,31 +278,39 @@ export default function CourtPage() {
       />
       {!isMobile && <AppHeader />}
 
-      <section className="court-m">
+      <section className={`court-m${bookOpen ? ' is-booking' : ''}`}>
+        {!bookOpen && (
+          <div className="court-m__float">
+            <button
+              type="button"
+              className="court-m__icon-btn"
+              aria-label="Orqaga"
+              onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/'))}
+            >
+              ←
+            </button>
+            <div className="court-m__float-right">
+              <button
+                type="button"
+                className={`court-m__icon-btn${saved ? ' is-saved' : ''}`}
+                aria-label="Sevimli"
+                onClick={toggleSave}
+              >
+                {saved ? '♥' : '♡'}
+              </button>
+              <button type="button" className="court-m__icon-btn" aria-label="Ulashish" onClick={share}>
+                ↗
+              </button>
+            </div>
+          </div>
+        )}
+
         <div
           className="court-m__hero"
           onTouchStart={onHeroTouchStart}
           onTouchEnd={onHeroTouchEnd}
         >
           <img src={gallery[activeImage] || courtImage(court)} alt={court.name} />
-
-          <button type="button" className="court-m__icon-btn court-m__back" aria-label="Orqaga" onClick={() => (window.history.length > 1 ? navigate(-1) : navigate('/'))}>
-            ←
-          </button>
-
-          <div className="court-m__hero-actions">
-            <button
-              type="button"
-              className={`court-m__icon-btn${saved ? ' is-saved' : ''}`}
-              aria-label="Sevimli"
-              onClick={toggleSave}
-            >
-              {saved ? '♥' : '♡'}
-            </button>
-            <button type="button" className="court-m__icon-btn" aria-label="Ulashish" onClick={share}>
-              ↗
-            </button>
-          </div>
 
           {gallery.length > 1 && (
             <>
@@ -566,7 +366,7 @@ export default function CourtPage() {
 
           <div className="court-m__layout">
             <div className="court-m__main">
-              {isMobile && bookingBlock}
+              {isMobile && availabilityPreview}
 
               {court.amenities?.length > 0 && (
                 <section className="court-m__section">
@@ -637,22 +437,26 @@ export default function CourtPage() {
               </section>
             </div>
 
-            {!isMobile && <aside className="court-m__aside">{bookingBlock}</aside>}
+            {!isMobile && <aside className="court-m__aside">{availabilityPreview}</aside>}
           </div>
         </div>
 
-        {isMobile && (
+        {isMobile && !bookOpen && (
           <div className="court-m__sticky">
-            <button type="button" className="court-m__sticky-btn" disabled={busy} onClick={onStickyBook}>
-              {busy
-                ? 'Bron qilinmoqda…'
-                : selected.length > 0
-                  ? `Bron qilish · ${selected.length} soat`
-                  : 'Bron qilish'}
+            <button type="button" className="court-m__sticky-btn" onClick={() => setBookOpen(true)}>
+              Bron qilish
             </button>
           </div>
         )}
       </section>
+
+      <BookingFlow
+        court={court}
+        open={bookOpen}
+        initialDate={date}
+        onClose={() => setBookOpen(false)}
+        onDone={refreshSlots}
+      />
     </>
   );
 }

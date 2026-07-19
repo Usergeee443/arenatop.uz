@@ -1,7 +1,6 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useDownload } from '../../context/DownloadContext';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { IconAbout, IconDownload, IconHelp, IconStadium } from '../ui/MiniIcons';
 
@@ -26,7 +25,6 @@ function FilterIcon({ size = 16 }) {
 
 export default function AppHeader({ search }) {
   const { user, isAuthenticated, openAuth } = useAuth();
-  const { openDownload } = useDownload();
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width: 959px)');
   const [open, setOpen] = useState(false);
@@ -34,7 +32,6 @@ export default function AppHeader({ search }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const lastY = useRef(0);
-  const searchPanelRef = useRef(null);
   const searchInputRef = useRef(null);
 
   const hasSearch = Boolean(search);
@@ -61,7 +58,6 @@ export default function AppHeader({ search }) {
   }, [searchOpen]);
 
   useEffect(() => {
-    // Mobilda header scroll bilan yashirilmasin
     if (isMobile) {
       setHidden(false);
       document.documentElement.classList.remove('nav-hidden');
@@ -79,13 +75,9 @@ export default function AppHeader({ search }) {
       const y = window.scrollY;
       const delta = y - lastY.current;
 
-      if (y < 48) {
-        setHidden(false);
-      } else if (delta > 8) {
-        setHidden(true);
-      } else if (delta < -8) {
-        setHidden(false);
-      }
+      if (y < 48) setHidden(false);
+      else if (delta > 8) setHidden(true);
+      else if (delta < -8) setHidden(false);
 
       lastY.current = y;
     };
@@ -126,10 +118,10 @@ export default function AppHeader({ search }) {
                 <IconAbout />
                 <span>Biz haqimizda</span>
               </Link>
-              <button type="button" className="app-nav__mini-btn" onClick={openDownload}>
+              <Link to="/yuklab-olish" className="app-nav__mini-btn">
                 <IconDownload />
                 <span>Yuklab olish</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -198,11 +190,7 @@ export default function AppHeader({ search }) {
         </div>
 
         {hasSearch && (
-          <div
-            ref={searchPanelRef}
-            className={`app-nav__search-panel${searchOpen ? ' is-open' : ''}`}
-            aria-hidden={!searchOpen}
-          >
+          <div className={`app-nav__search-panel${searchOpen ? ' is-open' : ''}`} aria-hidden={!searchOpen}>
             <div className="container">
               <div className="search-bar">
                 <input
@@ -230,26 +218,16 @@ export default function AppHeader({ search }) {
                 <div className="filter-sheet">
                   <label className="auth-label">
                     Tur
-                    <select
-                      value={search.categoryId}
-                      onChange={(e) => search.setCategoryId(e.target.value)}
-                      aria-label="Tur"
-                    >
+                    <select value={search.categoryId} onChange={(e) => search.setCategoryId(e.target.value)} aria-label="Tur">
                       <option value="">Barcha turlar</option>
                       {search.categories.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
+                        <option key={c.id} value={c.id}>{c.name}</option>
                       ))}
                     </select>
                   </label>
                   <label className="auth-label">
                     Saralash
-                    <select
-                      value={search.sortBy}
-                      onChange={(e) => search.setSortBy(e.target.value)}
-                      aria-label="Saralash"
-                    >
+                    <select value={search.sortBy} onChange={(e) => search.setSortBy(e.target.value)} aria-label="Saralash">
                       <option value="rating">Reyting</option>
                       <option value="price_asc">Narx ↑</option>
                       <option value="price_desc">Narx ↓</option>
@@ -257,14 +235,7 @@ export default function AppHeader({ search }) {
                     </select>
                   </label>
                   <div className="filter-sheet__actions">
-                    <button
-                      type="button"
-                      className="btn btn--ghost btn--sm"
-                      onClick={() => {
-                        search.setCategoryId('');
-                        search.setSortBy('rating');
-                      }}
-                    >
+                    <button type="button" className="btn btn--ghost btn--sm" onClick={() => { search.setCategoryId(''); search.setSortBy('rating'); }}>
                       Tozalash
                     </button>
                     <button type="button" className="btn btn--primary btn--sm" onClick={() => setFilterOpen(false)}>
@@ -279,57 +250,23 @@ export default function AppHeader({ search }) {
       </header>
 
       <div className={`app-nav__drawer${open ? ' is-open' : ''}`} aria-hidden={!open}>
-        <button
-          type="button"
-          className="app-nav__drawer-close"
-          aria-label="Yopish"
-          onClick={() => setOpen(false)}
-        >
-          ×
-        </button>
-
+        <button type="button" className="app-nav__drawer-close" aria-label="Yopish" onClick={() => setOpen(false)}>×</button>
         <nav className="app-nav__drawer-main" aria-label="Asosiy menyu">
-          <NavLink to="/" end className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>
-            Maydonlar
-          </NavLink>
-          <NavLink to="/bronlarim" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>
-            Bronlarim
-          </NavLink>
-          <NavLink to="/sevimlilar" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>
-            Sevimli
-          </NavLink>
-          <NavLink to="/profil" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>
-            Profil
-          </NavLink>
+          <NavLink to="/" end className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Maydonlar</NavLink>
+          <NavLink to="/bronlarim" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Bronlarim</NavLink>
+          <NavLink to="/sevimlilar" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Sevimli</NavLink>
+          <NavLink to="/profil" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Profil</NavLink>
         </nav>
-
         <div className="app-nav__drawer-extra">
-          <Link to="/stadioni-borlar" className="app-nav__drawer-chip" onClick={() => setOpen(false)}>
-            <IconStadium size={16} />
-            <span>Stadioni borlar</span>
-          </Link>
-          <Link to="/yordam" className="app-nav__drawer-chip" onClick={() => setOpen(false)}>
-            <IconHelp size={16} />
-            <span>Yordam</span>
-          </Link>
-          <Link to="/biz-haqimizda" className="app-nav__drawer-chip" onClick={() => setOpen(false)}>
-            <IconAbout size={16} />
-            <span>Biz haqimizda</span>
-          </Link>
-          <button type="button" className="app-nav__drawer-chip" onClick={() => { setOpen(false); openDownload(); }}>
-            <IconDownload size={16} />
-            <span>Yuklab olish</span>
-          </button>
+          <Link to="/stadioni-borlar" className="app-nav__drawer-chip" onClick={() => setOpen(false)}><IconStadium size={16} /><span>Stadioni borlar</span></Link>
+          <Link to="/yordam" className="app-nav__drawer-chip" onClick={() => setOpen(false)}><IconHelp size={16} /><span>Yordam</span></Link>
+          <Link to="/biz-haqimizda" className="app-nav__drawer-chip" onClick={() => setOpen(false)}><IconAbout size={16} /><span>Biz haqimizda</span></Link>
+          <Link to="/yuklab-olish" className="app-nav__drawer-chip" onClick={() => setOpen(false)}><IconDownload size={16} /><span>Yuklab olish</span></Link>
         </div>
-
         {!isAuthenticated ? (
-          <button type="button" className="btn btn--primary btn--lg app-nav__drawer-auth" onClick={() => { setOpen(false); openAuth(); }}>
-            Kirish
-          </button>
+          <button type="button" className="btn btn--primary btn--lg app-nav__drawer-auth" onClick={() => { setOpen(false); openAuth(); }}>Kirish</button>
         ) : (
-          <Link to="/profil" className="btn btn--ghost btn--lg app-nav__drawer-auth" onClick={() => setOpen(false)}>
-            {user?.name || 'Profil'}
-          </Link>
+          <Link to="/profil" className="btn btn--ghost btn--lg app-nav__drawer-auth" onClick={() => setOpen(false)}>{user?.name || 'Profil'}</Link>
         )}
       </div>
     </>

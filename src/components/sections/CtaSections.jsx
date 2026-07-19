@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { APP_STORE, EMAIL, PLAY_STORE } from '../../constants/links';
-import { useDownload } from '../../context/DownloadContext';
 
 function AppleIcon() {
   return (
@@ -120,8 +119,6 @@ export function ContactCta() {
 }
 
 export function HomeFaqAnswer({ item }) {
-  const { openDownload } = useDownload();
-
   if (item.a === 'store-links') {
     return (
       <p>
@@ -134,9 +131,9 @@ export function HomeFaqAnswer({ item }) {
           Google Play
         </a>{' '}
         dan yuklab olish mumkin.{' '}
-        <button type="button" className="text-link text-link--btn" onClick={openDownload}>
+        <Link to="/yuklab-olish" className="text-link">
           Yuklab olish
-        </button>
+        </Link>
       </p>
     );
   }

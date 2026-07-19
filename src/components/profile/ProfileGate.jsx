@@ -1,5 +1,6 @@
 import AppHeader from '../layout/AppHeader';
 import PageMeta from '../layout/PageMeta';
+import AuthRequired from '../ui/AuthRequired';
 import { useAuth } from '../../context/AuthContext';
 
 export default function ProfileGate({ title, description, path, children, maxWidth = 720 }) {
@@ -10,20 +11,17 @@ export default function ProfileGate({ title, description, path, children, maxWid
       <PageMeta title={`${title} — ArenaTop`} description={description} path={path} />
       <AppHeader />
 
-      <section className="app-page">
+      <section className="app-page profile-subpage">
         <div className="container" style={{ maxWidth }}>
-          <span className="eyebrow">Kabinet</span>
-          <h1 className="display-title">{title}</h1>
+          <h1 className="profile-subpage__title">{title}</h1>
 
           {loading && <p className="app-muted">Yuklanmoqda…</p>}
 
           {!loading && !isAuthenticated && (
-            <div className="book-success" style={{ marginTop: '1.25rem' }}>
-              <p>Bu bo‘limni ko‘rish uchun tizimga kiring.</p>
-              <button type="button" className="btn btn--primary" onClick={() => openAuth()}>
-                Kirish
-              </button>
-            </div>
+            <AuthRequired
+              message="Bu bo‘limni ko‘rish uchun tizimga kiring."
+              onLogin={() => openAuth()}
+            />
           )}
 
           {!loading && isAuthenticated && children}

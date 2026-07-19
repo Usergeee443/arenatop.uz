@@ -2,11 +2,8 @@ import { Link } from 'react-router-dom';
 import AppHeader from '../components/layout/AppHeader';
 import PageMeta from '../components/layout/PageMeta';
 import { EMAIL, PHONE_DISPLAY, TELEGRAM } from '../constants/links';
-import { useDownload } from '../context/DownloadContext';
 
 export default function AboutPage() {
-  const { openDownload } = useDownload();
-
   return (
     <>
       <PageMeta
@@ -47,9 +44,9 @@ export default function AboutPage() {
             <Link to="/stadioni-borlar" className="btn btn--ghost">
               Stadioni borlar uchun
             </Link>
-            <button type="button" className="btn btn--ghost" onClick={openDownload}>
+            <Link to="/yuklab-olish" className="btn btn--ghost">
               Ilovani yuklash
-            </button>
+            </Link>
           </div>
 
           <p className="app-muted" style={{ marginTop: '2rem' }}>

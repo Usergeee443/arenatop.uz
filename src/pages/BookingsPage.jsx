@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { cancelBooking, listMyBookings } from '../api/bookings';
 import AppHeader from '../components/layout/AppHeader';
 import PageMeta from '../components/layout/PageMeta';
+import AuthRequired from '../components/ui/AuthRequired';
 import { useAuth } from '../context/AuthContext';
 import { formatPrice, formatTime } from '../utils/format';
 
@@ -51,16 +52,11 @@ export default function BookingsPage() {
 
       <section className="app-page">
         <div className="container" style={{ maxWidth: 880 }}>
-          <span className="eyebrow">Kabinet</span>
-          <h1 className="display-title">Mening bronlarim</h1>
-
           {!authLoading && !isAuthenticated && (
-            <div className="book-success" style={{ marginTop: '1.5rem' }}>
-              <p>Bronlaringizni ko‘rish uchun tizimga kiring.</p>
-              <button type="button" className="btn btn--primary" onClick={() => openAuth()}>
-                Kirish
-              </button>
-            </div>
+            <AuthRequired
+              message="Bronlaringizni ko‘rish uchun tizimga kiring."
+              onLogin={() => openAuth()}
+            />
           )}
 
           {loading && <p className="app-muted">Yuklanmoqda…</p>}

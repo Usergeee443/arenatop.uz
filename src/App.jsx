@@ -1,15 +1,14 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import { AuthProvider } from './context/AuthContext';
-import { DownloadProvider } from './context/DownloadContext';
 import PRIVACY_CONTENT from './data/privacyContent';
 import AboutPage from './pages/AboutPage';
 import BookingsPage from './pages/BookingsPage';
 import CourtPage from './pages/CourtPage';
 import CourtsPage from './pages/CourtsPage';
+import DownloadPage from './pages/DownloadPage';
 import FavoritesPage from './pages/FavoritesPage';
 import HelpPage from './pages/HelpPage';
-import HomePage from './pages/HomePage';
 import LegalDocPage from './pages/LegalDocPage';
 import MyReviewsPage from './pages/MyReviewsPage';
 import NotificationsPage from './pages/NotificationsPage';
@@ -45,36 +44,35 @@ function PrivacyPage() {
 
 export default function App() {
   return (
-    <DownloadProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<CourtsPage />} />
-              <Route path="maydonlar" element={<Navigate to="/" replace />} />
-              <Route path="maydon/:id" element={<CourtPage />} />
-              <Route path="bronlarim" element={<BookingsPage />} />
-              <Route path="sevimlilar" element={<FavoritesPage />} />
-              <Route path="profil" element={<ProfilePage />} />
-              <Route path="profil/kartalar" element={<PaymentCardsPage />} />
-              <Route path="profil/qaytarishlar" element={<RefundsPage />} />
-              <Route path="profil/tolovlar" element={<PaymentsHistoryPage />} />
-              <Route path="profil/sharhlar" element={<MyReviewsPage />} />
-              <Route path="profil/bildirishnomalar" element={<NotificationsPage />} />
-              <Route path="yordam" element={<HelpPage />} />
-              <Route path="stadioni-borlar" element={<OwnersPage />} />
-              <Route path="stadion-qoshish" element={<Navigate to="/stadioni-borlar" replace />} />
-              <Route path="arena" element={<Navigate to="/stadioni-borlar" replace />} />
-              <Route path="biz-haqimizda" element={<AboutPage />} />
-              <Route path="ilova" element={<HomePage />} />
-              <Route path="oferta" element={<OfertaPage />} />
-              <Route path="privacy" element={<PrivacyPage />} />
-              <Route path="terms" element={<Navigate to="/oferta" replace />} />
-              <Route path="stadion/:slug" element={<Navigate to="/" replace />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-    </DownloadProvider>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<CourtsPage />} />
+            <Route path="maydonlar" element={<Navigate to="/" replace />} />
+            <Route path="maydon/:id" element={<CourtPage />} />
+            <Route path="bronlarim" element={<BookingsPage />} />
+            <Route path="sevimlilar" element={<FavoritesPage />} />
+            <Route path="profil" element={<ProfilePage />} />
+            <Route path="profil/kartalar" element={<PaymentCardsPage />} />
+            <Route path="profil/qaytarishlar" element={<RefundsPage />} />
+            <Route path="profil/tolovlar" element={<PaymentsHistoryPage />} />
+            <Route path="profil/sharhlar" element={<MyReviewsPage />} />
+            <Route path="profil/bildirishnomalar" element={<NotificationsPage />} />
+            <Route path="yordam" element={<HelpPage />} />
+            <Route path="yuklab-olish" element={<DownloadPage />} />
+            <Route path="stadioni-borlar" element={<OwnersPage />} />
+            <Route path="stadion-qoshish" element={<Navigate to="/stadioni-borlar" replace />} />
+            <Route path="arena" element={<Navigate to="/stadioni-borlar" replace />} />
+            <Route path="biz-haqimizda" element={<AboutPage />} />
+            <Route path="ilova" element={<Navigate to="/yuklab-olish" replace />} />
+            <Route path="oferta" element={<OfertaPage />} />
+            <Route path="privacy" element={<PrivacyPage />} />
+            <Route path="terms" element={<Navigate to="/oferta" replace />} />
+            <Route path="stadion/:slug" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

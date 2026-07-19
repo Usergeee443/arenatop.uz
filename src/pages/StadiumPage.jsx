@@ -2,11 +2,9 @@ import { Link, useParams } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import PageMeta from '../components/layout/PageMeta';
 import { homeArenas } from '../data/homeContent';
-import { useDownload } from '../context/DownloadContext';
 
 export default function StadiumPage() {
   const { slug } = useParams();
-  const { openDownload } = useDownload();
   const arena = homeArenas.find((a) => a.slug === slug);
 
   if (!arena) {
@@ -47,9 +45,9 @@ export default function StadiumPage() {
             Bo‘sh vaqtlarni ko‘ring va ArenaTop ilovasi orqali bir bosishda bron qiling.
           </p>
           <div className="hero__actions">
-            <button type="button" className="btn btn--primary btn--lg" onClick={openDownload}>
+            <Link to="/yuklab-olish" className="btn btn--primary btn--lg">
               Ilovani yuklab olish
-            </button>
+            </Link>
             <Link to="/" className="btn btn--ghost-light btn--lg">
               Bosh sahifa
             </Link>

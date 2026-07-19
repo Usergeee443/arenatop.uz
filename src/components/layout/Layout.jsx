@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import AuthModal from '../auth/AuthModal';
-import DownloadModal from './DownloadModal';
 import Footer from './Footer';
 import Preloader from './Preloader';
 import ScrollToTopButton from './ScrollToTopButton';
@@ -33,7 +32,6 @@ export default function Layout() {
       <Outlet />
       <Footer />
       <ScrollToTopButton />
-      <DownloadModal />
       <AuthModal />
     </>
   );

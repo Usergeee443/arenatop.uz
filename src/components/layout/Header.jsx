@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { useDownload } from '../../context/DownloadContext';
 
 function DownloadIcon() {
   return (
@@ -23,7 +22,6 @@ function MailIcon() {
 }
 
 export default function Header({ variant = 'consumer' }) {
-  const { openDownload } = useDownload();
   const { user, isAuthenticated, openAuth } = useAuth();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -107,10 +105,10 @@ export default function Header({ variant = 'consumer' }) {
                     Kirish
                   </button>
                 )}
-                <button type="button" className="nav__cta" aria-label="Yuklab olish" onClick={openDownload}>
+                <Link to="/yuklab-olish" className="nav__cta" aria-label="Yuklab olish">
                   <span className="nav__cta-text">Yuklab olish</span>
                   <span className="nav__cta-icon"><DownloadIcon /></span>
-                </button>
+                </Link>
               </>
             )}
             {!isConsumer && (
@@ -151,9 +149,9 @@ export default function Header({ variant = 'consumer' }) {
                 Kirish
               </button>
             )}
-            <button type="button" className="btn btn--ghost btn--lg" onClick={() => { setDrawerOpen(false); openDownload(); }}>
+            <Link to="/yuklab-olish" className="btn btn--ghost btn--lg" onClick={() => setDrawerOpen(false)}>
               Yuklab olish
-            </button>
+            </Link>
           </>
         ) : (
           <>

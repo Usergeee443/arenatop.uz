@@ -9,7 +9,6 @@ import { ArenasMarquee, OwnerTeaser, ReviewsMarquee } from '../components/sectio
 import { SectionHeader } from '../components/sections/Sections';
 import Faq from '../components/ui/Faq';
 import Reveal from '../components/ui/Reveal';
-import { useDownload } from '../context/DownloadContext';
 import {
   homeArenas,
   homeFaq,
@@ -22,7 +21,6 @@ import useHashScroll from '../hooks/useHashScroll';
 const HERO_PHONE = encodeURI('/assets/iPhone 15 Pro Max.png');
 
 export default function HomePage() {
-  const { openDownload } = useDownload();
   const [arenas, setArenas] = useState(homeArenas);
   useHashScroll();
 
@@ -57,9 +55,9 @@ export default function HomePage() {
                 <Link to="/" className="btn btn--primary btn--lg">
                   Saytda bron qilish
                 </Link>
-                <button type="button" className="btn btn--ghost-light btn--lg" onClick={openDownload}>
+                <Link to="/yuklab-olish" className="btn btn--ghost-light btn--lg">
                   Yuklab olish
-                </button>
+                </Link>
               </div>
             </div>
             <div className="hero__visual">

@@ -4,6 +4,7 @@ import { getSavedCourts } from '../api/users';
 import CourtCard from '../components/courts/CourtCard';
 import AppHeader from '../components/layout/AppHeader';
 import PageMeta from '../components/layout/PageMeta';
+import AuthRequired from '../components/ui/AuthRequired';
 import { useAuth } from '../context/AuthContext';
 
 export default function FavoritesPage() {
@@ -42,20 +43,11 @@ export default function FavoritesPage() {
 
       <section className="app-page">
         <div className="container">
-          <div className="app-page__head">
-            <div>
-              <span className="eyebrow">Kabinet</span>
-              <h1 className="display-title">Sevimli</h1>
-            </div>
-          </div>
-
           {!authLoading && !isAuthenticated && (
-            <div className="book-success">
-              <p>Sevimlilarni ko‘rish uchun tizimga kiring.</p>
-              <button type="button" className="btn btn--primary" onClick={() => openAuth()}>
-                Kirish
-              </button>
-            </div>
+            <AuthRequired
+              message="Sevimlilarni ko‘rish uchun tizimga kiring."
+              onLogin={() => openAuth()}
+            />
           )}
 
           {loading && <p className="app-muted">Yuklanmoqda…</p>}
