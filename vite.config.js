@@ -8,10 +8,9 @@ export default defineConfig({
   // iCloud/Desktop papkalarida cache va watch muammolarini kamaytirish
   cacheDir: path.join(os.tmpdir(), 'arenatop-vite-cache'),
   server: {
-    watch: {
-      usePolling: true,
-      interval: 1000,
-    },
+    host: '127.0.0.1',
+    port: 5173,
+    strictPort: true,
     proxy: {
       '/v1': {
         target: 'https://api.arenatop.uz',

@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
 import PageMeta from '../components/layout/PageMeta';
-import { APP_STORE, PLAY_STORE, SITE } from '../constants/links';
+import { APP_STORE, PLAY_STORE } from '../constants/links';
 
 const LOGO = '/assets/image_2026-01-14_11-08-19.png';
-const PAGE_URL = `${SITE}/yuklab-olish`;
 
 export default function DownloadPage() {
-  const qrPage = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=6&data=${encodeURIComponent(PAGE_URL)}`;
-
   return (
     <>
       <PageMeta
@@ -53,16 +50,6 @@ export default function DownloadPage() {
                 loading="lazy"
               />
             </a>
-          </div>
-
-          <div className="download-page__qr-row">
-            <img src={qrPage} alt="Ushbu sahifa QR kodi" width="120" height="120" />
-            <div className="download-page__qr-text">
-              <strong>Yuklab olish uchun yuqoridagilarni bosing</strong>
-              <p>
-                Bu QR kod ushbu sahifaga qo‘yilgan — boshqa qurilmadan skanerlab, shu sahifani ochishingiz mumkin.
-              </p>
-            </div>
           </div>
         </div>
       </section>

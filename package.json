@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "CHOKIDAR_USEPOLLING=true vite",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
