@@ -4820,10 +4820,41 @@ html.nav-hidden .filters-sticky {
     margin-bottom: 0;
 }
 
-.download-page__badge img {
-    display: block;
-    height: 48px;
-    width: auto;
+.dl-store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 168px;
+    padding: 0.7rem 1.15rem;
+    border-radius: 12px;
+    background: var(--elephant-ink);
+    color: var(--white);
+    text-decoration: none;
+    transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+
+.dl-store-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    color: var(--white);
+}
+
+.dl-store-btn span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.15;
+}
+
+.dl-store-btn small {
+    font-size: 0.68rem;
+    opacity: 0.7;
+}
+
+.dl-store-btn strong {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .dl-nav {
