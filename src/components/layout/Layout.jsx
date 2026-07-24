@@ -19,18 +19,23 @@ function ScrollToTop() {
 export default function Layout() {
   const { pathname } = useLocation();
   const isCourtDetail = /^\/maydon\//.test(pathname);
+  const isMapPage = pathname === '/xarita';
 
   useEffect(() => {
     document.documentElement.classList.toggle('court-immersive', isCourtDetail);
-    return () => document.documentElement.classList.remove('court-immersive');
-  }, [isCourtDetail]);
+    document.documentElement.classList.toggle('map-immersive', isMapPage);
+    return () => {
+      document.documentElement.classList.remove('court-immersive');
+      document.documentElement.classList.remove('map-immersive');
+    };
+  }, [isCourtDetail, isMapPage]);
 
   return (
     <>
       <Preloader />
       <ScrollToTop />
       <Outlet />
-      <Footer />
+      {!isMapPage && <Footer />}
       <ScrollToTopButton />
       <AuthModal />
     </>

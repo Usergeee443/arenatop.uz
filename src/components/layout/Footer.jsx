@@ -57,6 +57,7 @@ export default function Footer() {
             <div>
               <h4>Menyu</h4>
               <Link to="/">Maydonlar</Link>
+              <Link to="/xarita">Xarita</Link>
               <Link to="/bronlarim">Bronlarim</Link>
               <Link to="/sevimlilar">Sevimli</Link>
               <Link to="/profil">Profil</Link>

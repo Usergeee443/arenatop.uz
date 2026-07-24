@@ -136,6 +136,9 @@ export default function AppHeader({ search }) {
               <NavLink to="/" end className={({ isActive }) => `app-nav__tab${isActive ? ' is-active' : ''}`}>
                 Maydonlar
               </NavLink>
+              <NavLink to="/xarita" className={({ isActive }) => `app-nav__tab${isActive ? ' is-active' : ''}`}>
+                Xarita
+              </NavLink>
               <NavLink to="/bronlarim" className={({ isActive }) => `app-nav__tab${isActive ? ' is-active' : ''}`}>
                 Bronlarim
               </NavLink>
@@ -253,6 +256,7 @@ export default function AppHeader({ search }) {
         <button type="button" className="app-nav__drawer-close" aria-label="Yopish" onClick={() => setOpen(false)}>×</button>
         <nav className="app-nav__drawer-main" aria-label="Asosiy menyu">
           <NavLink to="/" end className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Maydonlar</NavLink>
+          <NavLink to="/xarita" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Xarita</NavLink>
           <NavLink to="/bronlarim" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Bronlarim</NavLink>
           <NavLink to="/sevimlilar" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Sevimli</NavLink>
           <NavLink to="/profil" className={({ isActive }) => `app-nav__drawer-btn${isActive ? ' is-active' : ''}`} onClick={() => setOpen(false)}>Profil</NavLink>

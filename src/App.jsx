@@ -10,6 +10,7 @@ import DownloadPage from './pages/DownloadPage';
 import FavoritesPage from './pages/FavoritesPage';
 import HelpPage from './pages/HelpPage';
 import LegalDocPage from './pages/LegalDocPage';
+import MapPage from './pages/MapPage';
 import MyReviewsPage from './pages/MyReviewsPage';
 import NotificationsPage from './pages/NotificationsPage';
 import OwnersPage from './pages/OwnersPage';
@@ -51,6 +52,7 @@ export default function App() {
             <Route index element={<CourtsPage />} />
             <Route path="maydonlar" element={<Navigate to="/" replace />} />
             <Route path="maydon/:id" element={<CourtPage />} />
+            <Route path="xarita" element={<MapPage />} />
             <Route path="bronlarim" element={<BookingsPage />} />
             <Route path="sevimlilar" element={<FavoritesPage />} />
             <Route path="profil" element={<ProfilePage />} />
