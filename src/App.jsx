@@ -6,6 +6,7 @@ import AboutPage from './pages/AboutPage';
 import BookingsPage from './pages/BookingsPage';
 import CourtPage from './pages/CourtPage';
 import CourtsPage from './pages/CourtsPage';
+import BusinessDownloadPage from './pages/BusinessDownloadPage';
 import DownloadPage from './pages/DownloadPage';
 import FavoritesPage from './pages/FavoritesPage';
 import HelpPage from './pages/HelpPage';
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="profil/bildirishnomalar" element={<NotificationsPage />} />
             <Route path="yordam" element={<HelpPage />} />
             <Route path="yuklab-olish" element={<DownloadPage />} />
+            <Route path="biznes-yuklab-olish" element={<BusinessDownloadPage />} />
             <Route path="stadioni-borlar" element={<OwnersPage />} />
             <Route path="stadion-qoshish" element={<Navigate to="/stadioni-borlar" replace />} />
             <Route path="arena" element={<Navigate to="/stadioni-borlar" replace />} />

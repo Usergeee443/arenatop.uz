@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getCategories, listCourts } from '../api/courts';
 import CourtCard from '../components/courts/CourtCard';
 import AppHeader from '../components/layout/AppHeader';
@@ -85,6 +86,18 @@ export default function CourtsPage() {
               <CourtCard key={court.id} court={court} />
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="about-teaser">
+        <div className="container about-teaser__row">
+          <div className="about-teaser__copy">
+            <h2>Biz haqimizda</h2>
+            <p>ArenaTop — sport maydonlarini onlayn bron qilish platformasi.</p>
+          </div>
+          <Link to="/biz-haqimizda" className="btn btn--ghost btn--sm">
+            Batafsil
+          </Link>
         </div>
       </section>
     </>
